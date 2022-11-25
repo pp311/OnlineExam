@@ -3,7 +3,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Test {
-	private int idTest, numberQuestion;
+	private int idTest, numberQuestion, timeInMinutes;
 	private Time time;
 	private Timestamp dateTest;
 	private String testName;
@@ -36,6 +36,12 @@ public class Test {
 	}
 	public void setTestName(String testName) {
 		this.testName = testName;
+	}
+	public int getTimeInMinutes() {
+		return timeInMinutes;
+	}
+	public void setTimeInMinutes(int timeInMinutes) {
+		this.timeInMinutes = timeInMinutes;
 	}
 	
 	

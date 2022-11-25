@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page language="java" import="model.BEAN.Test" %>
+<%@ page language="java" import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,38 +21,21 @@
             <th>Số lượng câu hỏi</th>
             <th>Thời gian làm bài</th>
             <th>Thời gian bắt đầu</th>
-            <th>Làm bài</th>
+            <th><%= (String)request.getAttribute("useraction") %></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Giữa kỳ CNW K20</td>
-            <td>40</td>
-            <td>40 (phút)</td>
-            <td>15/09/2022 25:00</td>
-            <td><a href="#">Làm bài</a></td>
-          </tr>
-          <tr>
-            <td>Giữa kỳ CNW K20</td>
-            <td>40</td>
-            <td>40 (phút)</td>
-            <td>15/09/2022 25:00</td>
-            <td><a href="#">Làm bài</a></td>
-          </tr>
-          <tr>
-            <td>Giữa kỳ CNW K20</td>
-            <td>40</td>
-            <td>40 (phút)</td>
-            <td>15/09/2022 25:00</td>
-            <td><a href="#">Làm bài</a></td>
-          </tr>
-          <tr>
-            <td>Giữa kỳ CNW K20</td>
-            <td>40</td>
-            <td>40 (phút)</td>
-            <td>15/09/2022 25:00</td>
-            <td><a href="#">Làm bài</a></td>
-          </tr>
+        <%
+        	ArrayList<Test> testList = (ArrayList<Test>)request.getAttribute("testlist");
+	        for(int i = 0; i < testList.size(); i++) { %>
+	        	<tr>
+		            <td><%= testList.get(i).getTestName() %></td>
+		            <td><%= testList.get(i).getNumberQuestion() %></td>
+		            <td><%= testList.get(i).getTimeInMinutes() %> (phút)</td>
+		            <td><%= new SimpleDateFormat("dd/MM/yyyy HH:mm").format(testList.get(i).getDateTest()) %></td>
+		            <td><a href="#"><%= (String)request.getAttribute("useraction") %></a></td>
+		          </tr>
+	      <% } %>  
         </tbody>
       </table>
     </div>
