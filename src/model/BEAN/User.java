@@ -30,7 +30,7 @@ public class User {
 	public String getFalcuty() {
 		return falcuty;
 	}
-	public void setFalcuty(String falcuty) {
+	public void setFaculty(String falcuty) {
 		this.falcuty = falcuty;
 	}
 	public String getPosition() {

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.BEAN.User;
 import model.BO.LoginBO;
 
-@WebServlet("/CheckLoginServlet")
+@WebServlet("/checklogin")
 public class CheckLoginServlet extends HttpServlet{
 private static final long serialVersionID = 1L;
 	

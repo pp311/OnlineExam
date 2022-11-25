@@ -23,6 +23,7 @@ public class LoginDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("Co loi xay ra khi dang nhap");
+			System.out.println(e);
 			return false;
 		}
 		return false;
@@ -43,9 +44,12 @@ public class LoginDAO {
 				return user;
 			}
 		} catch (SQLException e) {
-			System.out.println("Co loi xay ra khi dang nhap");
+			System.out.println("Co loi xay ra khi lay thong tin tu database (LoginDAO)");
+			System.out.println(e);
 			return null;
 		}
 		return null;
 	}
+	
+	
 }
