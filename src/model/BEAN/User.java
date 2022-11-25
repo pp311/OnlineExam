@@ -1,7 +1,7 @@
 package model.BEAN;
 
 public class User {
-	private String userName, name, code, className, falcuty, position;
+	private String userName, name, code, className, faculty, position;
 	private boolean gender;
 	public String getUserName() {
 		return userName;
@@ -27,11 +27,11 @@ public class User {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public String getFalcuty() {
-		return falcuty;
+	public String getFaculty() {
+		return faculty;
 	}
-	public void setFaculty(String falcuty) {
-		this.falcuty = falcuty;
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
 	}
 	public String getPosition() {
 		return position;

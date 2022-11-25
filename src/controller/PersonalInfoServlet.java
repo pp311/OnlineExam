@@ -30,7 +30,7 @@ private static final long serialVersionID = 1L;
 			request.setAttribute("name", userInfo.getName());
 			request.setAttribute("code", userInfo.getCode());
 			request.setAttribute("class", userInfo.getClassName());
-			request.setAttribute("falcuty", userInfo.getFalcuty());
+			request.setAttribute("faculty", userInfo.getFaculty());
 			request.setAttribute("gender", userInfo.isGender());
 		}
 		if(request.getParameter("err") != null) {

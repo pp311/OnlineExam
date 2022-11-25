@@ -25,7 +25,6 @@ private static final long serialVersionID = 1L;
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String destination = null;
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		LoginBO loginBO = new LoginBO();
@@ -35,7 +34,7 @@ private static final long serialVersionID = 1L;
 			User user = loginBO.getUserInfo(userName);
 			session.setAttribute("username", user.getUserName());
 			session.setAttribute("position", user.getPosition());
-			response.sendRedirect("lietkedethi.jsp");
+			response.sendRedirect("thongtincanhan");
 			//getServletContext().getRequestDispatcher(destination).forward(request, response);
 		}
 		else {

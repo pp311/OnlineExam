@@ -11,14 +11,14 @@
 <div class="container">
     <div class="card">
         <h2>Tạo tài khoản</h2>
-        <form action="">
+        <form method="post" action="<%=request.getContextPath()%>/taotaikhoan" >
             <label for="mssv">Mã số sinh viên</label>
             <br>
-            <input type="text" id="mssv" name="mssv" value="102200226" required>
+            <input type="text" id="mssv" name="mssv" value="" required>
             <br>
-            <label for="name">Tên tài khoản</label>
+            <label for="username">Tên tài khoản</label>
             <br>
-            <input type="text" id="name" name="name" value="" required>
+            <input type="text" id="username" name="username" value="" required>
             <br>
             <label for="password">Mật khẩu</label>
             <br>
@@ -31,6 +31,14 @@
                 <option value="student">Sinh viên</option>
             </select>
             <br>
+            <% 
+			  	if(request.getAttribute("err") != null) {
+			  		out.print("<p style='color:red; margin-bottom:5px;'>" + (String)request.getAttribute("err") + "</p>");
+			  	}
+			  	else if(request.getAttribute("success") != null) {
+			  		out.print("<p style='color:green; margin-bottom:5px;'>" + (String)request.getAttribute("success") + "</p>");
+			  	}
+			%>
             <input type="submit" name="change-info-submit-btn" value="Lưu" class="submit-btn">
         </form>
     </div>

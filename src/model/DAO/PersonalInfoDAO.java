@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.BEAN.Login;
 import model.BEAN.User;
 
 public class PersonalInfoDAO {
@@ -42,7 +43,7 @@ public class PersonalInfoDAO {
 		ps = db.prepareStatement(sql);
 		ps.setString(1, userInfo.getName());
 		ps.setString(2, userInfo.getClassName());
-		ps.setString(3, userInfo.getFalcuty());
+		ps.setString(3, userInfo.getFaculty());
 		ps.setInt(4, userInfo.isGender() ? 1 : 0);
 		ps.setString(5, userInfo.getUserName());
 		ps.execute();
@@ -69,5 +70,63 @@ public class PersonalInfoDAO {
 		}
 	}
 	
+	public boolean isExistingAccount(String username) {
+		try {
+			String sql = "select * from user where Username = ?";
+			Connection db = DBConnection.getInstance().getConection();
+			ps = db.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Co loi xay ra cap nhat thong tin tu database (PersonalInfoDAO)");
+			System.out.println(e);
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean isExistingMSSV(String mssv) {
+		try {
+			String sql = "select * from user where Code = ?";
+			Connection db = DBConnection.getInstance().getConection();
+			ps = db.prepareStatement(sql);
+			ps.setString(1, mssv);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Co loi xay ra cap nhat thong tin tu database (PersonalInfoDAO)");
+			System.out.println(e);
+			return false;
+		}
+		return false;
+	}
+	
+	public void createAccount(User user, Login login) {
+		try {
+			String sql = "insert into user(Username, Code, Position) values(?,?,?)";
+			Connection db = DBConnection.getInstance().getConection();
+			ps = db.prepareStatement(sql);
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getCode());
+			ps.setString(3, user.getPosition());
+			ps.execute();
+			
+			sql = "insert into login(Username, Password) values (?, ?)";
+			ps = db.prepareStatement(sql);
+			ps.setString(1, login.getUserName());
+			ps.setString(2, login.getPassword());
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Co loi xay ra cap nhat thong tin tu database (PersonalInfoDAO)");
+			System.out.println(e);
+		}
+	}
 
 }

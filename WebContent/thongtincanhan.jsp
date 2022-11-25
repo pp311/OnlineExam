@@ -28,7 +28,7 @@
                     <br>
                     <label for="faculty">Khoa</label>
                     <br>
-                    <input type="text" id="faculty" name="faculty" value="<%= (String)request.getAttribute("falcuty") %>"  >
+                    <input type="text" id="faculty" name="faculty" value="<%= (String)request.getAttribute("faculty") %>"  >
                     <br>
                     <label >Giới tính</label>
                     <br>
