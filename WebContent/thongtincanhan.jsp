@@ -13,7 +13,7 @@
         <div class="container">
             <div class="card">
                 <h2>Thông tin cá nhân</h2>
-                <form action="<%=request.getContextPath()%>/thongtincanhan" method="post">
+                <form action="thongtincanhan" method="post">
                     <label for="mssv">Mã số sinh viên</label>
                     <br>
                     <input type="text" id="mssv" name="mssv" value="<%= (String)request.getAttribute("code") %>" readonly  >

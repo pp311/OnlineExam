@@ -11,7 +11,7 @@
 <div class="container">
     <div class="card">
         <h2>Tạo tài khoản</h2>
-        <form method="post" action="<%=request.getContextPath()%>/taotaikhoan" >
+        <form method="post" action="taotaikhoan" >
             <label for="mssv">Mã số sinh viên</label>
             <br>
             <input type="text" id="mssv" name="mssv" value="" required>

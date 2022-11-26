@@ -11,7 +11,7 @@
     <body>
 <div class="container">
     <h1>ĐĂNG NHẬP</h1>
-<form method="post" action="<%=request.getContextPath()%>/checklogin">
+<form method="post" action="checklogin">
   <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
   <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
   <% 
