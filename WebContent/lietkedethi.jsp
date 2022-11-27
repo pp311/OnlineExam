@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./resources/css/lietkedethi.css">
 </head>
 <body>
+	<%@include file="navbar.jsp" %>
   <div class="container">
     <h1>Danh sách đề thi</h1>
     <div class="list">

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./resources/css/taotaikhoan.css">
 </head>
 <body>
+<%@include file="navbar.jsp" %>
 <div class="container">
     <div class="card">
         <h2>Tạo tài khoản</h2>

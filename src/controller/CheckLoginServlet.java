@@ -32,7 +32,8 @@ private static final long serialVersionUID = 1L;
 			User user = loginBO.getUserInfo(userName);
 			session.setAttribute("username", user.getUserName());
 			session.setAttribute("position", user.getPosition());
-			response.sendRedirect("thongtincanhan");
+			session.setAttribute("name", user.getName());
+			response.sendRedirect("lietkedethi");
 			//getServletContext().getRequestDispatcher(destination).forward(request, response);
 		}
 		else {
