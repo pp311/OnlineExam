@@ -60,7 +60,7 @@
     }
   </style>
   <body>
-    <form name="f1" action="ProgressCreate.php">
+    <form name="f1" action="CreateTestServlet">
 
       <div class="content">
         <div class="header" id="title">
@@ -127,20 +127,19 @@
         }
       }
 
-      function addElements(index){
-        var stID, ele, j = 0;
-        do{
-          j++;
-          stID = "st" + index + "." + j;
-          ele = document.getElementById(stID);
-        }
-        while(ele != null);
+      function addElements(i){
+        var list = document.getElementsByClassName('st' + i);
+        var end = list.length;
 
-        var s = "<div class='statement' id='" + stID +
-         "'><span id='" + index + "." + j + "'><input type='radio' name='group" +
-          index + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + index + "." + j +
-          "\")' width='20px'></div>";
-          var button = document.getElementById("bAdd" + index);
+        var multi=document.getElementsByClassName('cb'), choice = "";
+        if(multi[i-1].checked) choice = "<input type='checkbox' />"; 
+        else choice = "<input type='radio' name='group" + i + "' />";         
+
+        var s = "<div class='statement st" + i +
+         "'><span class='sp" + i + "'>" + choice + "</span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" +
+            i + "." + (end+1) + ")' width='20px'></div>"
+
+          var button = document.getElementById("bAdd" + i);
           button.insertAdjacentHTML(
             "beforebegin",
             s
@@ -148,47 +147,31 @@
           return false;
       }
 
-      function removeElements(id){
-          // var parent = document.getElementsByName('f1');
-          var child = document.getElementById(id);
-          if(child != null) {
-            // child.innerHTML = "";
-            // parent.removeChild(child);
-            // r.parentNode.removeChild(r);
-            child.remove();
-          }
-      }
-
       function removeStatement(id){
-        var index = id.split('.')[0];
-        var subIndex = Number(id.split('.')[1]);
+        var index = Number(id.toString().split('.')[0]);
+        var subIndex = Number(id.toString().split('.')[1]);
         // alert(index + ", " + subIndex);
-        var element = document.getElementById('st' + id);
-          if(element != null) {
-            element.remove();
-          }
+        
+        var element = document.getElementsByClassName('st' + index);
 
-        element = document.getElementById('st' + index + '.' + (subIndex+1));
-        while(element != null){
-          element.id = 'st' + index + '.' + subIndex;          
-          element.firstChild.id = index + '.' + subIndex;
-          element.lastChild.setAttribute("onclick", 'javascript: removeStatement("' + index + '.' + subIndex++ + '")');
-          element = document.getElementById('st' + index + '.' + (subIndex+1));
+        if(element[subIndex-1] != null) element[subIndex-1].remove();
+
+        var init = subIndex-1;
+        for(var i = init; i < element.length; i++){
+          element[i].lastChild.setAttribute("onclick", 'removeStatement("' + index + '.' + subIndex++ + '")');
         }
+
         return false;
       }
 
-      function findLastElements(number){
-        var i = 0; var element;
-        do{
-          element = document.getElementById(++i + "");
-        }while(element != null);
-        if(i == 1){
-          return 0;
-        }
-        else{
-          return i-1;
-        }
+      function removeAll(){
+        element = document.getElementById('set');
+        element.remove();
+      }
+
+      function numberQuestion(){
+        var element = document.getElementsByClassName('Question');
+        return element.length;
       }
 
       function numberChange() {
@@ -204,23 +187,23 @@
           alert("Bạn chưa nhập số câu hỏi!");
         }
         else{
-          last = findLastElements(number);
+          last = numberQuestion();
+
           if(last < number){ //Số câu hỏi cũ ít hơn số câu hỏi được yêu cầu
             if(last == 0){  //Chưa có câu hỏi nào
-
               var tag = document.getElementById("title");
               var s = "";
 
               for(i = 1; i <= number; i++){
-                s += "<div class='Question' id='" + i + "'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50'></textarea><input id='cb" + i + "' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
-                + "<div class='statement' id='st" + i + "." + 1 + "'><span id='" + i  + "." + 1 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 1 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 2 + "'><span id='" + i  + "." + 2 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 2 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 3 + "'><span id='" + i  + "." + 3 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 3 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 4 + "'><span id='" + i  + "." + 4 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 4 + "\")' width='20px'></div>"
-                + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(\"" + i + "\"); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
+                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' class='txt'></textarea><input class='cb' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
+                + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(" + i + "); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
               }
 
-              s += "<input type='submit' value='Hoàn thành' style='padding:10px; border-radius: 20px' /><a href='' style='float:right'>Xoá hết câu hỏi</a>";
+              s += "<input type='submit' value='Hoàn thành' style='padding:10px; border-radius: 20px' /><a href='' onclick = 'removeAll(); return false;' style='float:right'>Xoá hết câu hỏi</a>";
 
               tag.insertAdjacentHTML(
                 "afterend",
@@ -228,16 +211,16 @@
               );
             }
             else{ 
-              var tag = document.getElementById(last + "");
+              var tag = document.getElementsByClassName('Question')[last-1];
               var s = "";
 
               for(i = last+1; i <= number; i++){
-                s += "<div class='Question' id='" + i + "'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50'></textarea><input id='cb" + i + "' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
-                + "<div class='statement' id='st" + i + "." + 1 + "'><span id='" + i  + "." + 1 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 1 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 2 + "'><span id='" + i  + "." + 2 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 2 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 3 + "'><span id='" + i  + "." + 3 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 3 + "\")' width='20px'></div>"
-                + "<div class='statement' id='st" + i + "." + 4 + "'><span id='" + i  + "." + 4 + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(\"" + i  + "." + 4 + "\")' width='20px'></div>"
-                + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(\"" + i + "\"); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
+                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' id='txt[]'></textarea><input class='cb' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
+                + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(" + i + "); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
               }
 
               tag.insertAdjacentHTML(
@@ -248,30 +231,28 @@
           }
           else{   //Số câu hỏi cũ nhiều hơn hoặc bằng số câu hỏi được yêu cầu
             if(number == last) return;
-            for(i = number+1; i <= last; i++){
-              removeElements(i+"");
+            var list = document.getElementsByClassName('Question');
+            var count = last - number;
+            while(count > 0){
+              list[number].remove();
+              count--;
             }
           }
         }
       }
 
       function replaceElements(i){
-        var multi=document.getElementById('cb' + i);
-        var j = 1;
-        if(multi.checked){
-          var ele = document.getElementById(i + "." + j);
-          while(ele != null){
-            ele.innerHTML = "<input type='checkbox' />";     
-            j++;
-            ele = document.getElementById(i + "." + j);
+        var multi=document.getElementsByClassName('cb');
+        if(multi[i-1].checked){
+          var ele = document.getElementsByClassName("sp" + i);
+          for(var j = 0; j < ele.length; j++){
+            ele[j].innerHTML = "<input type='checkbox' />"; 
           }    
         }else{
-          var ele = document.getElementById(i + "." + j);
-          while(ele != null){
-            ele.innerHTML = "<input type='radio' name='group" + i + "' />";   
-            j++;
-            ele = document.getElementById(i + "." + j);
-          }
+          var ele = document.getElementsByClassName("sp" + i);
+          for(var j = 0; j < ele.length; j++){
+            ele[j].innerHTML = "<input type='radio' name='group" + i + "' />";   
+          }   
         }
       }
 
