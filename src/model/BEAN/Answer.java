@@ -4,6 +4,16 @@ public class Answer {
 	private int idAnswer, idQuestion;
 	private String content;
 	private boolean isCorrectAnswer;
+	public Answer() {
+		
+	}
+	public Answer(int idAnswer, int idQuestion, String content, boolean isCorrectAnswer) {
+		super();
+		this.idAnswer = idAnswer;
+		this.idQuestion = idQuestion;
+		this.content = content;
+		this.isCorrectAnswer = isCorrectAnswer;
+	}
 	public int getIdAnswer() {
 		return idAnswer;
 	}

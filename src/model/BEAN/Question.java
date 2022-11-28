@@ -4,6 +4,14 @@ public class Question {
 	private int idQuestion, idTest;
 	private String content;
 	private boolean multiChoice;
+	public Question() {}
+	public Question(int idQuestion, int idTest, String content, boolean multiChoice) {
+		super();
+		this.idQuestion = idQuestion;
+		this.idTest = idTest;
+		this.content = content;
+		this.multiChoice = multiChoice;
+	}
 	public int getIdQuestion() {
 		return idQuestion;
 	}

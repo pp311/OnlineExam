@@ -1,14 +1,14 @@
 package model.BEAN;
 
 public class User_Test {
-	private int idUser, idTest;
+	private int  idTest;
+	private String userName;
+	public User_Test() {}
 
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public User_Test(int idTest, String userName) {
+		super();
+		this.idTest = idTest;
+		this.userName = userName;
 	}
 
 	public int getIdTest() {
@@ -17,6 +17,14 @@ public class User_Test {
 
 	public void setIdTest(int idTest) {
 		this.idTest = idTest;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String username) {
+		this.userName = username;
 	}
 	
 }

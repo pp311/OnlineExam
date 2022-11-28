@@ -32,7 +32,7 @@
 	        	<tr>
 		            <td><%= testList.get(i).getTestName() %></td>
 		            <td><%= testList.get(i).getNumberQuestion() %></td>
-		            <td><%= testList.get(i).getTimeInMinutes() %> (phút)</td>
+		            <td><%= testList.get(i).getTime() %> (phút)</td>
 		            <td><%= new SimpleDateFormat("dd/MM/yyyy HH:mm").format(testList.get(i).getDateTest()) %></td>
 		            <td><a href="#"><%= (String)request.getAttribute("useraction") %></a></td>
 		          </tr>

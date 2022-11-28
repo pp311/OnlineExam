@@ -22,7 +22,7 @@ public class TestDAO {
 				t.setIdTest(rs.getInt("IDTest"));
 				t.setTestName(rs.getString("TestName"));
 				t.setNumberQuestion(rs.getInt("NumberQuestion"));
-				t.setTime(rs.getTime("Time"));
+				t.setTime(rs.getInt("Time"));
 				t.setDateTest(rs.getTimestamp("DateTest"));
 				result.add(t);
 			}

@@ -3,6 +3,13 @@ package model.BEAN;
 public class Login {
 	private int idLogin;
 	private String userName, password;
+	public Login() {}
+	public Login(int idLogin, String userName, String password) {
+		super();
+		this.idLogin = idLogin;
+		this.userName = userName;
+		this.password = password;
+	}
 	public int getIdLogin() {
 		return idLogin;
 	}
