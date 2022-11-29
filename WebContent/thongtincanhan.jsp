@@ -10,6 +10,7 @@
         <link href="./resources/css/thongtincanhan.css" rel="stylesheet">
     </head>
     <body>
+    	<%@include file="navbar.jsp" %>
         <div class="container">
             <div class="card">
                 <h2>Thông tin cá nhân</h2>

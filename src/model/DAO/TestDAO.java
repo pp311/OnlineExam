@@ -26,6 +26,7 @@ public class TestDAO {
 				t.setIdTest(rs.getInt("IDTest"));
 				t.setTestName(rs.getString("TestName"));
 				t.setNumberQuestion(rs.getInt("NumberQuestion"));
+				t.setTime(rs.getInt("Time"));
 				t.setDateTest(rs.getTimestamp("DateTest"));
 				result.add(t);
 			}
@@ -41,11 +42,11 @@ public class TestDAO {
 			Connection db = DBConnection.getInstance().getConection();
 			String sql = "INSERT INTO `test`(`DateTest`, `NumberQuestion`, `Time`, `TestName`) "
 			+ "VALUES ('" + test.getDateTest().toString() + "','" +
-					test.getNumberQuestion() + "','" + test.getTimeInMinutes() + "','" + test.getTestName() + "')";
+					test.getNumberQuestion() + "','" + test.getTime() + "','" + test.getTestName() + "')";
 			System.out.println(sql);
 			ps = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			int rs = ps.executeUpdate();
-			ps.next();
+//			ps.next();
 			int TestID = ps.getGeneratedKeys().getInt(1);
 			
 			System.out.println(TestID);

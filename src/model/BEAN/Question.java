@@ -5,7 +5,10 @@ public class Question {
 	private String content;
 	private boolean multiChoice;
 	
+	public Question() {}
+	
 	public Question(int idQuestion, int idTest, String content, boolean multiChoice) {
+		super();
 		this.idQuestion = idQuestion;
 		this.idTest = idTest;
 		this.content = content;

@@ -3,6 +3,18 @@ package model.BEAN;
 public class User {
 	private String userName, name, code, className, faculty, position;
 	private boolean gender;
+	public User() {}
+	public User(String userName, String name, String code, String className, String faculty, String position,
+			boolean gender) {
+		super();
+		this.userName = userName;
+		this.name = name;
+		this.code = code;
+		this.className = className;
+		this.faculty = faculty;
+		this.position = position;
+		this.gender = gender;
+	}
 	public String getUserName() {
 		return userName;
 	}

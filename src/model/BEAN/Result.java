@@ -7,6 +7,15 @@ public class Result {
 	private double grade;
 	private Timestamp submitTime;
 	private String userName;
+	public Result() {}
+	public Result(int idResult, int idTest, double grade, Timestamp submitTime, String userName) {
+		super();
+		this.idResult = idResult;
+		this.idTest = idTest;
+		this.grade = grade;
+		this.submitTime = submitTime;
+		this.userName = userName;
+	}
 	public int getIdResult() {
 		return idResult;
 	}

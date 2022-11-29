@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./resources/css/lietkedethi.css">
 </head>
 <body>
+	<%@include file="navbar.jsp" %>
   <div class="container">
     <h1>Danh sách đề thi</h1>
     <div class="list">
@@ -31,7 +32,7 @@
 	        	<tr>
 		            <td><%= testList.get(i).getTestName() %></td>
 		            <td><%= testList.get(i).getNumberQuestion() %></td>
-		            <td><%= testList.get(i).getTimeInMinutes() %> (phút)</td>
+		            <td><%= testList.get(i).getTime() %> (phút)</td>
 		            <td><%= new SimpleDateFormat("dd/MM/yyyy HH:mm").format(testList.get(i).getDateTest()) %></td>
 		            <td><a href="#"><%= (String)request.getAttribute("useraction") %></a></td>
 		          </tr>

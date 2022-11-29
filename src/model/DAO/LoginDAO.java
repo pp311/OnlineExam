@@ -41,6 +41,7 @@ public class LoginDAO {
 			if(rs.next()) {
 				user.setPosition(rs.getString("Position"));
 				user.setClassName(rs.getString("Class"));
+				user.setName(rs.getString("Name"));
 				return user;
 			}
 		} catch (SQLException e) {

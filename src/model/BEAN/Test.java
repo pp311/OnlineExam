@@ -2,17 +2,16 @@ package model.BEAN;
 import java.sql.Timestamp;
 
 public class Test {
-	private int idTest, numberQuestion, timeInMinutes;
+	private int idTest, numberQuestion;
+	private int time;
 	private Timestamp dateTest;
 	private String testName;
-	
-	public Test() {
-		
-	}
-	public Test(int idTest, int numberQuestion, int timeInMinutes, Timestamp dateTest, String testName) {
+	public Test() {}
+	public Test(int idTest, int numberQuestion, int time, Timestamp dateTest, String testName) {
+		super();
 		this.idTest = idTest;
 		this.numberQuestion = numberQuestion;
-		this.timeInMinutes = timeInMinutes;
+		this.time = time;
 		this.dateTest = dateTest;
 		this.testName = testName;
 	}
@@ -28,6 +27,12 @@ public class Test {
 	public void setNumberQuestion(int numberQuestion) {
 		this.numberQuestion = numberQuestion;
 	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
 	public Timestamp getDateTest() {
 		return dateTest;
 	}
@@ -40,14 +45,8 @@ public class Test {
 	public void setTestName(String testName) {
 		this.testName = testName;
 	}
-	public int getTimeInMinutes() {
-		return timeInMinutes;
-	}
-	public void setTimeInMinutes(int timeInMinutes) {
-		this.timeInMinutes = timeInMinutes;
-	}
 	
 	public String toString() {
-		return "" + idTest + ", " + numberQuestion + ", " + timeInMinutes + ", " + dateTest.toString() + ", " + testName;
+		return "" + idTest + ", " + numberQuestion + ", " + time + ", " + dateTest.toString() + ", " + testName;
 	}
 }
