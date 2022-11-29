@@ -13,8 +13,8 @@ public class TestBO {
 		return new TestDAO().getAllTest();
 		
 	}
-	public void AddTest(Test test, List<Question> questions, List<Answer> answers) {
+	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {
 		TestDAO td = new TestDAO();
-		td.AddTest(test, questions, answers);
+		return td.AddTest(test, questions, answers);
 	}
 }

@@ -60,7 +60,7 @@
     }
   </style>
   <body>
-    <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
+    <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' onbeforeunload="otherSubject()" method="post">
 
       <div class="content">
         <div class="header" id="title">
@@ -159,6 +159,7 @@
 
         var init = subIndex-1;
         for(var i = init; i < element.length; i++){
+          element[i].firstChild.firstChild.setAttribute("value", "" + subIndex);
           element[i].lastChild.setAttribute("onclick", 'removeStatement("' + index + '.' + subIndex++ + '")');
         }
 
@@ -285,6 +286,24 @@
 			  alert("Số câu hỏi phải là số dương!");
 			  return false;
 		  }
+		  
+		  //bug 1
+//		  var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
+
+//			for(var i = 1; i <= multiChoice.length; i++) {
+//				
+//				if(multiChoice[i-1] != null) {		
+//					alert("hello");
+//					var correct = document.getElementsByName("cb" + i);
+//					alert(correct.length);
+//				}
+//				else {alert("hello2");
+//					var correct = document.getElementsByName("group" + i);
+//					alert(correct.length);	
+//				}
+//			}
+
+			//bug 2: nhấn quay lui thì mất cái input otherSubject
 		  
     	  return true;
       }
