@@ -4,6 +4,13 @@ public class Question {
 	private int idQuestion, idTest;
 	private String content;
 	private boolean multiChoice;
+	
+	public Question(int idQuestion, int idTest, String content, boolean multiChoice) {
+		this.idQuestion = idQuestion;
+		this.idTest = idTest;
+		this.content = content;
+		this.multiChoice = multiChoice;
+	}
 	public int getIdQuestion() {
 		return idQuestion;
 	}
@@ -29,7 +36,9 @@ public class Question {
 		this.multiChoice = multiChoice;
 	}
 	
-	
+	public String toString() {
+		return "" + idQuestion + ", " + idTest + ", " + content + ", " + multiChoice;
+	}
 	
 
 }

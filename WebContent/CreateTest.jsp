@@ -60,7 +60,7 @@
     }
   </style>
   <body>
-    <form name="f1" action="CreateTestServlet">
+    <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
       <div class="content">
         <div class="header" id="title">
@@ -73,7 +73,7 @@
             </span>
             
             <span class="top right"> 
-              Thời gian thi: <input type="text" name="pass" style="width: 30px" /> phút
+              Thời gian thi: <input type="text" name="timeInMininutes" style="width: 30px" /> phút
             </span>
   
           </div>
@@ -82,7 +82,7 @@
   
             <span class="top left">
               Môn thi:
-              <select id="subjectTest" onchange="otherSubject();">
+              <select name="subjectTest" onchange="otherSubject();">
                 <option>Công nghệ web</option>
                 <option>Lập trình mạng</option>
                 <option>Chương trình dịch</option>
@@ -93,7 +93,7 @@
             
             <span class="top right">
               Số câu:
-              <input type="text" id="numberQues" style="width: 30px" />
+              <input type="text" name="numberQues" style="width: 30px" />
             </span>
             
           </div>
@@ -114,15 +114,15 @@
     <script>
 
       function otherSubject() {
-        var select = document.getElementById("subjectTest").value;
+        var select = document.getElementsByName("subjectTest")[0].value;
         if (select == "Khác") {
-          var selectBox = document.getElementById("subjectTest");
+          var selectBox = document.getElementsByName("subjectTest")[0];
           selectBox.insertAdjacentHTML(
             "afterend",
-            ' <input type="text" id="subjectOther" />'
+            ' <input type="text" name="subjectOther" />'
           );
         }else{
-          var r = document.getElementById('subjectOther');
+          var r = document.getElementsByName('subjectOther')[0];
           if(r != null) r.parentNode.removeChild(r);
         }
       }
@@ -131,12 +131,13 @@
         var list = document.getElementsByClassName('st' + i);
         var end = list.length;
 
-        var multi=document.getElementsByClassName('cb'), choice = "";
-        if(multi[i-1].checked) choice = "<input type='checkbox' />"; 
-        else choice = "<input type='radio' name='group" + i + "' />";         
+        var multi=document.getElementsByName('cb')[i-1];
+        var choice = "";
+        if(multi.checked) choice = "<input type='checkbox' name='cb" + i + "' value='" + (end+1) + "'/>"; 
+        else choice = "<input type='radio' name='group" + i + "' value='" + (end+1) + "' />";         
 
         var s = "<div class='statement st" + i +
-         "'><span class='sp" + i + "'>" + choice + "</span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" +
+         "'><span class='sp" + i + "'>" + choice + "</span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" +
             i + "." + (end+1) + ")' width='20px'></div>"
 
           var button = document.getElementById("bAdd" + i);
@@ -175,8 +176,8 @@
       }
 
       function numberChange() {
-        var numberQues = document.getElementById("numberQues");
-        var number = Number(numberQues.value);
+        var numberQues = document.getElementsByName("numberQues");
+        var number = Number(numberQues[0].value);
 
         // alert(number);
         if (isNaN(number)) {
@@ -195,11 +196,11 @@
               var s = "";
 
               for(i = 1; i <= number; i++){
-                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' class='txt'></textarea><input class='cb' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
+                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' name='txt" + i + "'></textarea><input name='cb' type='checkbox' style='margin-left:30px' value='" + i + "' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 1 + "'/></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 2 + "'/></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 3 + "'/></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 4 + "'/></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
                 + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(" + i + "); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
               }
 
@@ -215,11 +216,11 @@
               var s = "";
 
               for(i = last+1; i <= number; i++){
-                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' id='txt[]'></textarea><input class='cb' type='checkbox' style='margin-left:30px' value='multiple' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
-                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' /></span><textarea rows='1' cols='50' class='txt'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
+                s += "<div class='Question'><div class='statement'>Câu " + i + ": " + "<textarea rows='2' cols='50' name='txt" + i + "'></textarea><input name='cb' type='checkbox' style='margin-left:30px' value='" + i + "' onchange='replaceElements(" + i + ")' /> Cho phép chọn nhiều đáp án</div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 1 + "' /></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 1 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 2 + "' /></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 2 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 3 + "' /></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 3 + ")' width='20px'></div>"
+                + "<div class='statement st" + i + "'><span class='sp" + i + "'><input type='radio' name='group" + i + "' value='" + 4 + "' /></span><textarea rows='1' cols='50' name='txt" + i + "'></textarea> <input type='image' src='resources/icon/cross.png' onclick='removeStatement(" + i + "." + 4 + ")' width='20px'></div>"
                 + "<div class='statement' id='bAdd" + i + "'><input type='image' src='resources/icon/plus.png' onclick='addElements(" + i + "); return false;' width='16px'> Thêm câu trả lời</div><br></div>";
               }
 
@@ -242,18 +243,50 @@
       }
 
       function replaceElements(i){
-        var multi=document.getElementsByClassName('cb');
-        if(multi[i-1].checked){
+        var multi=document.getElementsByName('cb')[i-1];
+        if(multi.checked){
           var ele = document.getElementsByClassName("sp" + i);
           for(var j = 0; j < ele.length; j++){
-            ele[j].innerHTML = "<input type='checkbox' />"; 
+            ele[j].innerHTML = "<input type='checkbox' name='cb" + i + "' value='" + (j+1) + "'/>"; 
           }    
         }else{
           var ele = document.getElementsByClassName("sp" + i);
           for(var j = 0; j < ele.length; j++){
-            ele[j].innerHTML = "<input type='radio' name='group" + i + "' />";   
+            ele[j].innerHTML = "<input type='radio' name='group" + i + "' value='" + (j+1) + "'/>";   
           }   
         }
+      }
+      
+      function checkAll(){
+    	  var date = document.getElementsByName("dateTest")[0].value;
+    	  var milliseconds = (new Date()).getTime() - new Date(date).getTime();
+		  if(milliseconds >= 0){
+			  alert("Ngày thi phải sau thời điểm hiện tại!");
+			  return false;
+		  }
+		  
+		  var testName = document.getElementsByName("subjectTest")[0].value;
+		  if(testName == "Khác"){
+			  var other = document.getElementsByName("subjectOther")[0].value;
+			  if(other == ""){
+				  alert("Môn học không thể để trống!");
+				  return false;
+			  }
+		  }
+
+		  var date = document.getElementsByName("timeInMininutes")[0].value;
+		  if(isNaN(Number(date)) || date <= 0){
+			  alert("Thời gian thi phải là số dương!");
+			  return false;
+		  }
+
+		  var numQues = document.getElementsByName("numQues")[0].value;
+		  if(isNaN(Number(numQues)) || date <= 0){
+			  alert("Số câu hỏi phải là số dương!");
+			  return false;
+		  }
+		  
+    	  return true;
       }
 
     </script>

@@ -12,7 +12,7 @@ public class LoginDAO {
 	private PreparedStatement ps;
 	public boolean isCorrectLoginInfo(String username, String password) {
 		try {
-			String sql = "select * from login where UserName = ? and Password = ?";
+			String sql = "select * from login where Username = ? and Password = ?";
 			Connection db = DBConnection.getInstance().getConection();
 			ps = db.prepareStatement(sql);
 			ps.setString(1, username);

@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
 			session.setAttribute("username", user.getUserName());
 			session.setAttribute("position", user.getPosition());
 			response.sendRedirect("thongtincanhan");
-			//getServletContext().getRequestDispatcher(destination).forward(request, response);
+//			getServletContext().getRequestDispatcher(destination).forward(request, response);
 		}
 		else {
 			response.sendRedirect("login.jsp?err=1");

@@ -24,9 +24,9 @@ public class DBConnection {
         return instance;
     }
 	
-	 private DBConnection() {
-	        connectToMySQL();
-	    }
+	private DBConnection() {
+        connectToMySQL();
+    }
 	
 	public synchronized Connection getConection() {
 		return conn;
