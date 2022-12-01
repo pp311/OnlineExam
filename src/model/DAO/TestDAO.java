@@ -37,6 +37,84 @@ public class TestDAO {
 		}
 		return result;
 	}
+	
+	public Test getTest(int TestID) {
+		try {
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT * FROM `test` WHERE `IDTest` = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, TestID);
+			
+			ResultSet result = ps.executeQuery();
+			if(result.next()) return new Test(result.getInt("IDTest"), result.getInt("NumberQuestion"),
+					result.getInt("Time"), result.getTimestamp("DateTest"), result.getString("TestName"));
+
+			return null;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay de!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public List<Question> getQuestions(int TestID) {
+		try {
+			List<Question> listQ = new ArrayList<Question>();
+			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT * FROM `question` WHERE `IDTest` = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, TestID);
+
+			ResultSet result = ps.executeQuery();
+			
+			while(result.next()) {
+				listQ.add(new Question(result.getInt("IDQuestion"), result.getInt("IDTest"),
+				result.getString("Content"), result.getBoolean("MultiChoice")));
+			}
+			
+			return listQ;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay cau hoi!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public List<Answer> getAnswers(List<Question> listQ) {
+		try {
+			List<Answer> listA = new ArrayList<Answer>();
+			
+			Connection db = DBConnection.getInstance().getConection();
+			
+			for(int i = 0; i < listQ.size(); i++) {
+				String sql = "SELECT * FROM `answer` WHERE `IDQuestion` = ?";
+				
+				ps = db.prepareStatement(sql);
+				ps.setInt(1, listQ.get(i).getIdQuestion());
+				
+				ResultSet result = ps.executeQuery();
+				
+				while(result.next()) {
+					listA.add(new Answer(result.getInt("IDAnswer"), result.getInt("IDQuestion"),
+					result.getString("Content"), result.getBoolean("IsCorrectAnswer")));
+				}				
+				
+			}
+			
+			return listA;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay dap an!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
 	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {
 		try {
 			Connection db = DBConnection.getInstance().getConection();

@@ -60,7 +60,7 @@
     }
   </style>
   <body>
-    <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' onbeforeunload="otherSubject()" method="post">
+    <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
       <div class="content">
         <div class="header" id="title">
@@ -288,23 +288,24 @@
 		  }
 		  
 		  //bug 1
-//		  var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
-
-//			for(var i = 1; i <= multiChoice.length; i++) {
-//				
-//				if(multiChoice[i-1] != null) {		
-//					alert("hello");
-//					var correct = document.getElementsByName("cb" + i);
-//					alert(correct.length);
-//				}
-//				else {alert("hello2");
-//					var correct = document.getElementsByName("group" + i);
-//					alert(correct.length);	
-//				}
-//			}
+		 /*  var multi=document.getElementsByName('cb')[0];
+		  //var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
+ 		if(multi.checked) alert("yes");
+		else alert("no");   */
+			   /* for(var i = 1; i <= multiChoice.length; i++) {
+				
+				if(multiChoice[i-1] != null) {		
+					alert("hello");
+					var correct = document.getElementsByName("cb" + i);
+					alert(correct.length);
+				}
+				else {alert("hello2");
+					var correct = document.getElementsByName("group" + i);
+					alert(correct.length);	
+				}
+			}   */
 
 			//bug 2: nhấn quay lui thì mất cái input otherSubject
-		  
     	  return true;
       }
 
