@@ -5,7 +5,7 @@ public class Test {
 	private int idTest, numberQuestion;
 	private int time;
 	private Timestamp dateTest;
-	private String testName;
+	private String testName, subject;
 	public Test() {}
 	public Test(int idTest, int numberQuestion, int time, Timestamp dateTest, String testName) {
 		super();
@@ -48,5 +48,11 @@ public class Test {
 	
 	public String toString() {
 		return "" + idTest + ", " + numberQuestion + ", " + time + ", " + dateTest.toString() + ", " + testName;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }

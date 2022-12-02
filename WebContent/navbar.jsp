@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-        
-	/* * {
-	    padding: 0;
-	    text-decoration: none;
-	    outline: none;
-	    box-sizing: border-box;
-	    margin: 0;
-	} */
+        * {box-sizing: border-box;}
+
+	   	body {
+		    padding: 0;
+		    margin: 0;
+		    box-sizing: border-box;
+		    text-decoration: none;
+		    outline: none;
+		}
         nav {
             display: flex;
             //align-items: center;
             width: 100%;
             background-color: #2A3F54;
-            //padding:  0 20px;
+            padding:  0 20px;
         }
         .nav-group {
             display: flex;
@@ -26,7 +27,7 @@
             text-decoration: none;
             min-width: 120px;
             font-weight: bold;
-            height: 100%;
+            //height: 100%;
             display: flex;
             align-items: center;
         }

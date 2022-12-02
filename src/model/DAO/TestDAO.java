@@ -70,12 +70,12 @@ public class TestDAO {
 			
 			ps = db.prepareStatement(sql);
 			ps.setInt(1, TestID);
-
+			
 			ResultSet result = ps.executeQuery();
 			
 			while(result.next()) {
 				listQ.add(new Question(result.getInt("IDQuestion"), result.getInt("IDTest"),
-				result.getString("Content"), result.getBoolean("MultiChoice")));
+						result.getString("Content"), result.getBoolean("MultiChoice")));
 			}
 			
 			return listQ;
@@ -103,7 +103,7 @@ public class TestDAO {
 				
 				while(result.next()) {
 					listA.add(new Answer(result.getInt("IDAnswer"), result.getInt("IDQuestion"),
-					result.getString("Content"), result.getBoolean("IsCorrectAnswer")));
+							result.getString("Content"), result.getBoolean("IsCorrectAnswer")));
 				}				
 				
 			}
@@ -112,6 +112,56 @@ public class TestDAO {
 		}
 		catch (SQLException e) {
 			System.out.println("Co loi xay ra khi lay dap an!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public Result getResult(int ResultID) {
+		try {			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT * FROM `result` WHERE `IDResult` = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, ResultID);
+
+			ResultSet result = ps.executeQuery();
+
+			if(result.next()) {
+				return new Result(result.getInt("IDResult"), result.getInt("IDTest"),
+				result.getDouble("Grade"), result.getTimestamp("submitTime"), result.getString("userName"));
+			}
+			
+			return null;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ket qua!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public List<History> getHistories(int ResultID) {
+		try {
+			List<History> listH = new ArrayList<History>();
+			
+			Connection db = DBConnection.getInstance().getConection();
+			
+			String sql = "SELECT * FROM `history` WHERE `IDResult` = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, ResultID);
+			
+			ResultSet result = ps.executeQuery();
+			
+			while(result.next()) {
+				listH.add(new History(result.getInt("IDResult"), result.getInt("IDAnswer")));
+			}	
+			
+			return listH;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay lich su!");
 			System.out.println(e);
 			return null;
 		}
@@ -216,7 +266,7 @@ public class TestDAO {
 			return true;
 		}
 		catch (SQLException e) {
-			System.out.println("Co loi xay ra khi them de!");
+			System.out.println("Co loi xay ra khi them ket qua!");
 			System.out.println(e);
 			return false;
 		}

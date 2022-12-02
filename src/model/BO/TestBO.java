@@ -24,6 +24,12 @@ public class TestBO {
 	public List<Answer> getAnswers(List<Question> listQ) {
 		return new TestDAO().getAnswers(listQ);
 	}
+	public Result getResult(int ResultID) {
+		return new TestDAO().getResult(ResultID);
+	}
+	public List<History> getHistories(int ResultID) {
+		return new TestDAO().getHistories(ResultID);
+	}
 	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {
 		TestDAO td = new TestDAO();
 		return td.AddTest(test, questions, answers);
