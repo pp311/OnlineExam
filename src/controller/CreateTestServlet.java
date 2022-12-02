@@ -45,7 +45,7 @@ public class CreateTestServlet extends HttpServlet {
 			String msg = "Tạo đề thành công!";
 			request.setAttribute("success", msg);
 		}
-//		getServletContext().getRequestDispatcher("/ViewTest.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/CreateTest.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

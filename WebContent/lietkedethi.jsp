@@ -34,7 +34,16 @@
 		            <td><%= testList.get(i).getNumberQuestion() %></td>
 		            <td><%= testList.get(i).getTime() %> (phút)</td>
 		            <td><%= new SimpleDateFormat("dd/MM/yyyy HH:mm").format(testList.get(i).getDateTest()) %></td>
-		            <td><a href="#"><%= (String)request.getAttribute("useraction") %></a></td>
+		            <td><a href=
+		            	"<% 
+		            	if(session.getAttribute("position").equals("student")){ %> 
+		            		DoTestServlet?IDTest=<%= testList.get(i).getIdTest() %>
+		            	<%} else{ %>
+		            		ViewTestServlet
+		            	
+		            	<%} %>
+		            	">
+		            	<%= (String)request.getAttribute("useraction") %></a></td>
 		          </tr>
 	      <% } %>  
         </tbody>

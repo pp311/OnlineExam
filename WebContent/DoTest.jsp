@@ -73,7 +73,7 @@
     	List<Answer> listA = (List<Answer>)request.getAttribute("listA");
     	DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
     %>
-    
+    <%@include file="navbar.jsp" %> 
     <form name="f1" action="DoTestServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
 
       <div class="content">
@@ -119,9 +119,9 @@
 	 				
 		            <div class='statement'>
 		            	<% if(!listQ.get(i-1).isMultiChoice()){ %>
-		            		<input type='radio' name='group' value='<%= ans.getIdQuestion() %>.<%= ans.getIdAnswer() %>' />
+		            		<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' />
 		            	<% }else{ %>
-		            		<input type='checkbox' name='cb' value='<%= ans.getIdQuestion() %>.<%= ans.getIdAnswer() %>' />
+		            		<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' />
 		            	<% } %>
 		            	<label><%= ans.getContent() %></label>
 	            	</div>

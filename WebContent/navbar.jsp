@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
+        
+	/* * {
+	    padding: 0;
+	    text-decoration: none;
+	    outline: none;
+	    box-sizing: border-box;
+	    margin: 0;
+	} */
         nav {
             display: flex;
             //align-items: center;
             width: 100%;
             background-color: #2A3F54;
-            padding:  0 20px;
+            //padding:  0 20px;
         }
         .nav-group {
             display: flex;
@@ -41,7 +49,6 @@
             min-width: 50px;
             margin: 0;
         }
-        
     </style>
     <script src="https://kit.fontawesome.com/8533135931.js" crossorigin="anonymous"></script>
     <nav>
@@ -58,7 +65,7 @@
      <% } else if(session.getAttribute("position").equals("teacher")){ %>
        <div class="nav-group nav-left">
 	       <a href="lietkedethi" class="nav-item">Danh sách bài thi</a>
-        	<a href="CreateTest" class="nav-item">Tạo bài thi</a>
+        	<a href="CreateTestServlet" class="nav-item">Tạo bài thi</a>
        </div>
        	<div class="nav-group nav-right">
 	  		<a href="thongtincanhan" class="nav-item"><img src="./resources/icon/149071.png" class="nav-user-img"><%= (String)session.getAttribute("name") %></a>
@@ -67,7 +74,7 @@
   	<% } else {%>
 	  	<div class="nav-group nav-left">
 	  		<a href="lietkedethi" class="nav-item">Danh sách bài thi</a>
-	        <a href="CreateTest" class="nav-item">Tạo bài thi</a>
+	        <a href="CreateTestServlet" class="nav-item">Tạo bài thi</a>
 	        <a href="taotaikhoan" class="nav-item">Tạo tài khoản</a>
 	  	</div>
         <div class="nav-group nav-right">

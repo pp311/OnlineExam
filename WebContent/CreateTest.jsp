@@ -60,6 +60,7 @@
     }
   </style>
   <body>
+	<%@include file="navbar.jsp" %> 
     <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
       <div class="content">

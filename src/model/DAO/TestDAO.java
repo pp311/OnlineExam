@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.BEAN.Answer;
+import model.BEAN.History;
 import model.BEAN.Question;
+import model.BEAN.Result;
 import model.BEAN.Test;
 
 public class TestDAO {
@@ -119,7 +121,7 @@ public class TestDAO {
 		try {
 			Connection db = DBConnection.getInstance().getConection();
 			String sql = "INSERT INTO `test`(`DateTest`, `NumberQuestion`, `Time`, `TestName`) "
-			+ "VALUES (?,?,?,?)";
+					+ "VALUES (?,?,?,?)";
 			
 			ps = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setTimestamp(1, test.getDateTest());
@@ -129,7 +131,7 @@ public class TestDAO {
 			
 			int add = ps.executeUpdate();
 			if(add == 0) return false;
-
+			
 			ResultSet rs = ps.getGeneratedKeys();	//return set row (first row contain generate keys)
 			rs.next();								//jump to first row
 			int TestID = rs.getInt(1);				//get column 1 is column id
@@ -141,7 +143,7 @@ public class TestDAO {
 				ps.setString(1, questions.get(i).getContent());
 				ps.setBoolean(2, questions.get(i).isMultiChoice());
 				ps.setInt(3, TestID);
-
+				
 				add = ps.executeUpdate();
 				if(add == 0) return false;
 				
@@ -162,14 +164,55 @@ public class TestDAO {
 				count--;
 				
 				sql = sql.substring(0, sql.length()-1);
-
+				
 				System.out.println(sql);
 				ps = db.prepareStatement(sql);
 				add = ps.executeUpdate();
 				if(add == 0) return false;
 			}	
-						
+			
 			System.out.println(TestID);
+			return true;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi them de!");
+			System.out.println(e);
+			return false;
+		}
+	}
+	
+	public boolean AddResult(Result rs, List<History> listH) {
+		try {
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "INSERT INTO `result`(`Username`, `Grade`, `SummitTime`, `IDTest`) "
+					+ "VALUES (?,?,?,?) ";
+			
+			ps = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, rs.getUserName());
+			ps.setDouble(2, rs.getGrade());
+			ps.setTimestamp(3, rs.getSubmitTime());
+			ps.setInt(4, rs.getIdTest());
+			
+			int add = ps.executeUpdate();
+			if(add == 0) return false;
+
+			ResultSet resultSet = ps.getGeneratedKeys();	//return set row (first row contain generate keys)
+			resultSet.next();								//jump to first row
+			int ResultID = resultSet.getInt(1);				//get column 1 is column id
+			
+			for(int i = 0; i < listH.size(); i++) {
+				sql = "INSERT INTO `history`(`IDResult`, `IDAnswer`) "
+						+ "VALUES (?,?)";
+				
+				ps = db.prepareStatement(sql);
+				ps.setInt(1, listH.get(i).getIdResult());
+				ps.setInt(2, listH.get(i).getIdAnswer());
+
+				add = ps.executeUpdate();
+				if(add == 0) return false;
+			}	
+						
+			System.out.println(ResultID);
 			return true;
 		}
 		catch (SQLException e) {
