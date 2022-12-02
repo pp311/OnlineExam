@@ -129,7 +129,7 @@ public class TestDAO {
 
 			if(result.next()) {
 				return new Result(result.getInt("IDResult"), result.getInt("IDTest"),
-				result.getDouble("Grade"), result.getTimestamp("submitTime"), result.getString("userName"));
+				result.getDouble("Grade"), result.getTimestamp("SummitTime"), result.getString("Username"));
 			}
 			
 			return null;
@@ -141,13 +141,13 @@ public class TestDAO {
 		}
 	}
 	
-	public List<History> getHistories(int ResultID) {
+	public List<Integer> getHistories(int ResultID) {
 		try {
-			List<History> listH = new ArrayList<History>();
+			List<Integer> listH = new ArrayList<Integer>();
 			
 			Connection db = DBConnection.getInstance().getConection();
 			
-			String sql = "SELECT * FROM `history` WHERE `IDResult` = ?";
+			String sql = "SELECT IDAnswer FROM `history` WHERE `IDResult` = ?";
 			
 			ps = db.prepareStatement(sql);
 			ps.setInt(1, ResultID);
@@ -155,7 +155,7 @@ public class TestDAO {
 			ResultSet result = ps.executeQuery();
 			
 			while(result.next()) {
-				listH.add(new History(result.getInt("IDResult"), result.getInt("IDAnswer")));
+				listH.add(result.getInt(1));
 			}	
 			
 			return listH;
@@ -255,7 +255,7 @@ public class TestDAO {
 						+ "VALUES (?,?)";
 				
 				ps = db.prepareStatement(sql);
-				ps.setInt(1, listH.get(i).getIdResult());
+				ps.setInt(1, ResultID);
 				ps.setInt(2, listH.get(i).getIdAnswer());
 
 				add = ps.executeUpdate();

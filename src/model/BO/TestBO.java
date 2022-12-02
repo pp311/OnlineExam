@@ -27,7 +27,7 @@ public class TestBO {
 	public Result getResult(int ResultID) {
 		return new TestDAO().getResult(ResultID);
 	}
-	public List<History> getHistories(int ResultID) {
+	public List<Integer> getHistories(int ResultID) {
 		return new TestDAO().getHistories(ResultID);
 	}
 	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {

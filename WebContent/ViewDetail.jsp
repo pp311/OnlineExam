@@ -141,19 +141,18 @@
 	 				
 		            <div class='statement'>
 		            	<% if(!listQ.get(i-1).isMultiChoice()){
-		            		if(listH.contains(ans.isCorrectAnswer())){ %>
-		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' checked /> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' <% } else %> src='resources/icon/wrong.png' width='20px'  >
+		            		if(listH.contains(ans.getIdAnswer())){ %>
+		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' checked /> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png'  width='15px'<%} %>  >
 		            		<% }else{ %>
-		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' /> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' <% } else %> src='resources/icon/wrong.png' width='20px'  >
+		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' /> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>  >
 		            		<% }
-	            		}else{%>
-		            		if(listH.contains(ans.isCorrectAnswer())){ %>
-		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' checked /> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' <% } else %> src='resources/icon/wrong.png' width='20px'  > 
+	            		}else{
+		            		if(listH.contains(ans.getIdAnswer())){ %>
+		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' checked /> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png' width='15px'<%} %>   > 
 		            		<% }else{ %>
-		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' /> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' <% } else %> src='resources/icon/wrong.png' width='20px'  > 
+		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' /> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>   > 
 		            		<% }	
 	            		} %>
-		            	<label><%= ans.getContent() %></label>
 	            	</div>
 	 				
 	 				<% 
