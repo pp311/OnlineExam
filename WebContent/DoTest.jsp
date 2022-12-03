@@ -119,9 +119,9 @@
 	 				
 		            <div class='statement'>
 		            	<% if(!listQ.get(i-1).isMultiChoice()){ %>
-		            		<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' />
+		            		<input type='radio' name=ra<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' />
 		            	<% }else{ %>
-		            		<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' />
+		            		<input type='checkbox' name=cb<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' />
 		            	<% } %>
 		            	<label><%= ans.getContent() %></label>
 	            	</div>

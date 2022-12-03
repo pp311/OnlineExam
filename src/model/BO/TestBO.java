@@ -38,4 +38,16 @@ public class TestBO {
 		TestDAO td = new TestDAO();
 		return td.AddResult(rs, listH);
 	}
+	public int checkradio(int ctl) {
+		// TODO Auto-generated method stub
+		return new TestDAO().checkradio(ctl);
+	}
+	public int getSoLuong(int idqs) {
+		// TODO Auto-generated method stub
+		return new TestDAO().getSoLuong(idqs);
+	}
+	public int checkcheckbox(int ctl) {
+		// TODO Auto-generated method stub
+		return new TestDAO().checkcheckbox(ctl);
+	}
 }

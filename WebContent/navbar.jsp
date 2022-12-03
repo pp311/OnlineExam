@@ -57,7 +57,7 @@
   	<% if(session.getAttribute("position").equals("student") ) { %>
 	  	<div class="nav-group nav-left">
 	  		<a href="lietkedethi" class="nav-item">Làm bài thi</a>
-	        <a href="#" class="nav-item">Kết quả thi</a>
+	        <a href="LichSuLamBaiServlet" class="nav-item">Lịch Sử Làm Bài</a>
 	  	</div>
 	  	<div class="nav-group nav-right">
 	  		<a href="thongtincanhan" class="nav-item"><img src="./resources/icon/149071.png" class="nav-user-img"><%= (String)session.getAttribute("name") %></a>

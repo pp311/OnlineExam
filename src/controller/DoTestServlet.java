@@ -37,37 +37,60 @@ public class DoTestServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Timestamp submitTime = new Timestamp(System.currentTimeMillis());
+		
+		TestBO tb = new TestBO();
 		int IDTest = Integer.parseInt(request.getParameter("IDTest"));
-		double Grade = 0.0; int count = 0;
+		request.setAttribute("Test", tb.getTest(IDTest));
+		List<Question> listQ = tb.getQuestions(IDTest);
+		
+		double Grade = 0.0; int count = 0;double scd = 0;
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("username");
 		List<History> listH = new ArrayList<>();
-				
-		String[] listCB = request.getParameterValues("cb");
-		String[] listRD = request.getParameterValues("group");
-		if(listCB != null) {
-			for(int i = 0; i < listCB.length; i++) {
-				System.out.println(listCB[i]);
-				int IDAnswer = Integer.parseInt(listCB[i]);
-				//Nếu là câu đúng thì tăng biến đếm...
-				listH.add(new History(-1, IDAnswer));
-				
-			}
-		}
-		if(listRD != null) {
-			for(int i = 0; i < listRD.length; i++) {
-				System.out.println(listRD[i]);
-				int IDAnswer = Integer.parseInt(listRD[i]);
-				//Nếu là câu đúng thì tăng biến đếm...
-				listH.add(new History(-1, IDAnswer));
-			}
-		}
+	
+		System.out.println(listQ.size());
+		for(int i = 0;i < listQ.size() ;i++) {
+			if(!listQ.get(i).isMultiChoice()) {
+				listQ.get(i).getIdQuestion();
+				int ctl = Integer.parseInt((String)request.getParameter("ra"+String.valueOf(listQ.get(i).getIdQuestion())));
+				listH.add(new History(-1, ctl));
+				if(1==tb.checkradio(ctl)) {
+					scd +=1;
+				}
 
-		TestBO tb = new TestBO();
-		int numberQuestion = tb.getTest(IDTest).getNumberQuestion();
-		//Tính điểm...
+			}
+			else {
+				
+				int idqs= listQ.get(i).getIdQuestion();
+				String[] myCheckBoxValue = request.getParameterValues("cb"+String.valueOf(listQ.get(i).getIdQuestion()));
+				int soluong= tb.getSoLuong(idqs);
+				double dung = 0;
+				for(int x = 0;x<myCheckBoxValue.length;x++) {
+					int ctl = Integer.parseInt(myCheckBoxValue[x]);
+					listH.add(new History(-1, ctl));
+					if (tb.checkcheckbox(ctl)==1) {
+						dung +=(double)1/soluong;
+					}
+					else {
+						dung -=(double)1/soluong;
+					}
+					
+				}
+				if (dung >0) {
+				scd +=dung;
+				}
+			}
+			
+			
+		}
+		System.out.println(scd);
+		Grade = scd/listQ.size()*10; 
+		System.out.println(Grade);
+		System.out.println("vao day");
+		
 		Result rs = new Result(-1, IDTest, Grade, submitTime, userName);
 		tb.AddResult(rs, listH);
-	}
+		response.sendRedirect("LichSuLamBaiServlet");
 
+	}
 }

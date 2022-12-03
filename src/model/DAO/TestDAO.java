@@ -271,4 +271,73 @@ public class TestDAO {
 			return false;
 		}
 	}
+
+	public int checkradio(int ctl) {
+		try {			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT IsCorrectAnswer FROM answer WHERE IDAnswer = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, ctl);
+
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()) {
+				return rs.getInt("IsCorrectAnswer");
+			}
+			
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ket qua!");
+			System.out.println(e);
+			
+		}
+		return 0;
+	}
+
+	public int checkcheckbox(int ctl) {
+		try {			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT IsCorrectAnswer FROM answer WHERE IDAnswer = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, ctl);
+
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()) {
+				return rs.getInt("IsCorrectAnswer");
+			}
+			
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ket qua!");
+			System.out.println(e);
+			
+		}
+		return 0;
+	}
+
+	public int getSoLuong(int idqs) {
+		try {			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "SELECT COUNT(*) as count FROM answer WHERE IsCorrectAnswer = 1 AND IDQuestion = ?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, idqs);
+
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()) {
+				return rs.getInt("count");
+			}
+			
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ket qua!");
+			System.out.println(e);
+			
+		}
+		return 0;
+	}
 }
