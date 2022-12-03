@@ -340,4 +340,25 @@ public class TestDAO {
 		}
 		return 0;
 	}
+	public boolean deleteTest(int id) {
+		try {			
+			Connection db = DBConnection.getInstance().getConection();
+			String sql = "delete from test where IDTest = ?";	
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			sql = "delete from result where IDTest = ?";	
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.execute();
+			
+
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ket qua!");
+			System.out.println(e);
+			return false;			
+		}
+		return true;
+	}
 }

@@ -50,4 +50,7 @@ public class TestBO {
 		// TODO Auto-generated method stub
 		return new TestDAO().checkcheckbox(ctl);
 	}
+	public boolean deleteTest(int id) {
+		return new TestDAO().deleteTest(id);
+	}
 }

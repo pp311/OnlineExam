@@ -90,6 +90,7 @@ public class DoTestServlet extends HttpServlet {
 		
 		Result rs = new Result(-1, IDTest, Grade, submitTime, userName);
 		tb.AddResult(rs, listH);
+		
 		response.sendRedirect("LichSuLamBaiServlet");
 
 	}

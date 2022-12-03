@@ -23,6 +23,11 @@
             <th>Thời gian làm bài</th>
             <th>Thời gian bắt đầu</th>
             <th><%= (String)request.getAttribute("useraction") %></th>
+            <%
+            if(session.getAttribute("position").equals("admin")){ %> 
+            	<th>Xóa</th>
+            <% } %>
+            
           </tr>
         </thead>
         <tbody>
@@ -44,6 +49,13 @@
 		            	<%} %>
 		            	">
 		            	<%= (String)request.getAttribute("useraction") %></a></td>
+		            	<%
+				            if(session.getAttribute("position").equals("admin")){ %> 
+				            	<td>
+				            		<a href="deletetest?testid=<%= testList.get(i).getIdTest()%>">Xóa</a>
+				            	</td>
+				            <% } %>
+		          
 		          </tr>
 	      <% } %>  
         </tbody>
