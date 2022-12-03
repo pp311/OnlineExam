@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import model.BEAN.History;
 import model.BEAN.Question;
 import model.BEAN.Result;
+import model.BEAN.Test;
 import model.BO.TestBO;
 
 @WebServlet("/DoTestServlet")
@@ -36,6 +38,7 @@ public class DoTestServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rq = null;
 		Timestamp submitTime = new Timestamp(System.currentTimeMillis());
 		
 		TestBO tb = new TestBO();
@@ -89,9 +92,14 @@ public class DoTestServlet extends HttpServlet {
 		System.out.println("vao day");
 		
 		Result rs = new Result(-1, IDTest, Grade, submitTime, userName);
+		Test test = tb.getTest(rs.getIdTest());
+		String nametest = test.getTestName();
 		tb.AddResult(rs, listH);
-		
-		response.sendRedirect("LichSuLamBaiServlet");
+		request.setAttribute("nametest",nametest );
+		request.setAttribute("rs", rs);
+		//response.sendRedirect("LichSuLamBaiServlet");
+		rq = request.getRequestDispatcher("/ketqua.jsp");
+		rq.forward(request, response);
 
 	}
 }

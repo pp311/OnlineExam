@@ -8,16 +8,14 @@ public class LichSuLamBai {
 	private double grade;
 	private Timestamp submitTime;
 	private String testName;
-	private String name;
 	
 	public LichSuLamBai() {}
-	public LichSuLamBai(int idrs,String us,double grade,Timestamp submit,String testName,String name) {
+	public LichSuLamBai(int idrs,String us,double grade,Timestamp submit,String testName) {
 		this.setIdResult(idrs);
 		this.setUserName(us);
 		this.setGrade(grade);
 		this.submitTime = submit;
 		this.testName = testName;
-		this.name = name;
 	}
 	public int getIdResult() {
 		return idResult;
@@ -48,12 +46,6 @@ public class LichSuLamBai {
 	}
 	public void setTestName(String testName) {
 		this.testName = testName;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 }

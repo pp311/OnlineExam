@@ -1,3 +1,4 @@
+<%@page import="model.BEAN.Result"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page language="java" import="model.BEAN.LichSuLamBai" %>
@@ -11,9 +12,11 @@
 </head>
 <body>
 	<%@include file="navbar.jsp" %>
-	<% ArrayList<LichSuLamBai> listKQ = (ArrayList)request.getAttribute("listKQ"); %>
+	<% Result rs = (Result)request.getAttribute("rs"); 
+		String nametest = (String)request.getAttribute("nametest");
+	%>
   <div class="container">
-    <h1>Danh sách bài thi đã làm</h1>
+    <h1>Kết quả làm bài</h1>
     <div class="list">
       <table>
         <thead>
@@ -25,14 +28,13 @@
           </tr>
         </thead>
         <tbody>
-        	<% for(int i = 0;i<listKQ.size();i++){
-        		%>  	
+        	
 	        <tr>          
-		       <td><%=listKQ.get(i).getTestName() %></td>
-		       <td><%=listKQ.get(i).getGrade() %></td>
-		       <td><%=listKQ.get(i).getSubmitTime() %></td>
+		       <td><%=nametest %></td>
+		       <td><%=rs.getGrade() %></td>
+		       <td><%=rs.getSubmitTime() %></td>
 	        </tr>        
- 			<%} %>
+ 
         </tbody>
       </table>
     </div>
