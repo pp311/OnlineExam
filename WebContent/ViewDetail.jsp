@@ -142,15 +142,15 @@
 		            <div class='statement'>
 		            	<% if(!listQ.get(i-1).isMultiChoice()){
 		            		if(listH.contains(ans.getIdAnswer())){ %>
-		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' checked /> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png'  width='15px'<%} %>  >
+		            			<input type='radio' name=ra<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' checked disabled /> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png'  width='15px'<%} %>  >
 		            		<% }else{ %>
-		            			<input type='radio' name='group' value='<%= ans.getIdAnswer() %>' /> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>  >
+		            			<input type='radio' name=ra<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' disabled/> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>  >
 		            		<% }
 	            		}else{
 		            		if(listH.contains(ans.getIdAnswer())){ %>
-		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' checked /> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png' width='15px'<%} %>   > 
+		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' checked disabled/> <label><%= ans.getContent() %></label> <input type='image' <% if(ans.isCorrectAnswer()){ %> src='resources/icon/correct.png' width='20px'<% } else{ %> src='resources/icon/wrong.png' width='15px'<%} %>   > 
 		            		<% }else{ %>
-		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' /> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>   > 
+		            			<input type='checkbox' name='cb' value='<%= ans.getIdAnswer() %>' disabled/> <label><%= ans.getContent() %></label> <input <% if(ans.isCorrectAnswer()){ %> type='image' src='resources/icon/correct.png' width='20px'<% } else{ %> type='hidden'  <%} %>   > 
 		            		<% }	
 	            		} %>
 	            	</div>
