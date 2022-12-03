@@ -78,7 +78,7 @@
     	DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
     %>
     <%@include file="navbar.jsp" %> 
-    <form name="f1" action="ViewDetailServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
+    <form name="f1" action="ViewTestServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
 
       <div class="content">
         <div class="header">

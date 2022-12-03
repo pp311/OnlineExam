@@ -46,7 +46,7 @@ public class ViewTestServlet extends HttpServlet {
 		int IDTest = Integer.parseInt(request.getParameter("IDTest"));
 		ArrayList<ViewTest> listKQ = tb.getAllSVByID(IDTest);
 		request.setAttribute("listKQ", listKQ);
-		
+		getServletContext().getRequestDispatcher("/ViewTest.jsp").forward(request, response);
 	}
 
 }

@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="./resources/css/lietkedethi.css">
 </head>
 <body>
+<%
+	if(request.getParameter("err") != null) {
+%>
+	<script type="text/javascript">
+		alert("Chưa đến thời gian làm bài!");
+	</script>
+<% } %>
 	<%@include file="navbar.jsp" %>
   <div class="container">
     <h1>Danh sách đề thi</h1>

@@ -32,7 +32,7 @@
 		       <td><%=listKQ.get(i).getName() %></td>
 		       <td><%=listKQ.get(i).getGrade() %></td>
 		       <td><%=listKQ.get(i).getSubmitTime() %></td>
-		       <td><a href ="#"?<%=listKQ.get(i).getUserName() %>>Xem</a></td>
+		       <td><a href ="ViewDetailServlet?IDResult=<%=listKQ.get(i).getIDResult() %>">Xem</a></td>
 	        </tr>        
  			<%} %>
         </tbody>

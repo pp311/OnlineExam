@@ -6,13 +6,15 @@ public class ViewTest {
 		private String userName, name;
 		private double grade;
 		private Timestamp submitTime;
+		private int IDResult;
 		public ViewTest() {}
-		public ViewTest(String userName, String name,double grade, Timestamp submitTime) {
+		public ViewTest(String userName, String name,double grade, Timestamp submitTime, int idResult) {
 			super();
 			this.userName = userName;
 			this.name = name;
 			this.grade = grade;
 			this.submitTime = submitTime;
+			this.IDResult = idResult;
 		}
 		public String getUserName() {
 			return userName;
@@ -37,6 +39,12 @@ public class ViewTest {
 		}
 		public void setSubmitTime(Timestamp submitTime) {
 			this.submitTime = submitTime;
+		}
+		public int getIDResult() {
+			return IDResult;
+		}
+		public void setIDResult(int iDResult) {
+			IDResult = iDResult;
 		}
 		
 }

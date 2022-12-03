@@ -39,7 +39,7 @@ public class ViewDetailServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/abc.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("ViewTestServlet").forward(request, response);
 	}
 
 }

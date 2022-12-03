@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -30,11 +31,19 @@ public class DoTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int IDTest = Integer.parseInt(request.getParameter("IDTest"));
 		TestBO tb = new TestBO();
-		request.setAttribute("Test", tb.getTest(IDTest));
+		Test testInfo  =tb.getTest(IDTest);
+		Date date = new Date();
+		Timestamp now = new Timestamp(date.getTime());
+		
+		request.setAttribute("Test", testInfo);
+		
 		List<Question> listQ = tb.getQuestions(IDTest);
 		request.setAttribute("listQ", listQ);
 		request.setAttribute("listA", tb.getAnswers(listQ));
-		getServletContext().getRequestDispatcher("/DoTest.jsp").forward(request, response);
+		if(testInfo.getDateTest().compareTo(now) > 0) {
+			response.sendRedirect("lietkedethi?err=1");
+		} else
+			getServletContext().getRequestDispatcher("/DoTest.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
