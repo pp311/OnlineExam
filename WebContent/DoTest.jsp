@@ -66,6 +66,19 @@
 	    background-color: gray;
 	    height: 1px;
   	}
+  	.countdown {
+    	position: sticky;
+    	top: 200px;
+    	padding: 20px;
+    	border: 3px solid red;
+    	width: 100px;
+    	text-align: center;
+    	font-weight: bold;
+    	font-size: 24px;
+    }
+    .countdown p {
+    	margin: 0; 
+    }
   </style>
   <body>
     <% Test t = (Test)request.getAttribute("Test");
@@ -74,6 +87,10 @@
     	DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
     %>
     <%@include file="navbar.jsp" %> 
+    <div class="countdown">
+    	<input type="hidden" id="time" value="<%= t.getTime()%>">
+		<p id="clock">00:00</p>
+	</div>
     <form name="f1" action="DoTestServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
 
       <div class="content">
@@ -140,6 +157,28 @@
     </form>
 
     <script>
+    const clock = document.getElementById("clock");
+    let time = document.getElementById("time").value *60;
+    
+    let min = Math.floor(time / 60);
+    
+    let sec = time - min * 60;
+    
+    let down = setInterval(() => {
+		sec--;
+		if(sec < 0) {
+			min--;
+			sec = 59;
+		}
+		if(min < 0) {
+			const form = document.f1.submit();
+			clearInterval(down);
+		}
+		clock.innerHTML = min + ":" + sec;
+		
+
+	}, 1000);
+    
       function removeAll(){
     	  var choice = document.getElementsByName("cb");
     	  if(choice != null){

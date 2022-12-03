@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@include file="navbar.jsp" %>
-	<% ArrayList<LichSuLamBai> listKQ = (ArrayList)request.getAttribute("listKQ"); %>
+	<% ArrayList<LichSuLamBai> listKQ = (ArrayList<LichSuLamBai>)request.getAttribute("listKQ"); %>
   <div class="container">
     <h1>Danh sách bài thi đã làm</h1>
     <div class="list">

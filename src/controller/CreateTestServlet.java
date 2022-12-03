@@ -108,6 +108,7 @@ public class CreateTestServlet extends HttpServlet {
 			boolean rs = tb.AddTest(test, listQ, listA);
 //			if(rs) response.sendRedirect("CreateTestServlet?success=1");
 //			else response.sendRedirect("CreateTestServlet?err=1");
+			response.sendRedirect("lietkedethi");
 		}catch(ParseException e) {
 			
 		}

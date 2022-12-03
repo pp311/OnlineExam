@@ -41,6 +41,7 @@
       padding: 20px 85px;
       border-radius: 8px;
       background-color: white;
+      width: 900px;
     }
     #createQuestion{
       text-align: center;
@@ -50,6 +51,12 @@
       border-radius: 8px;
       margin-bottom: 20px;
       background-color: white;
+      width: 900px;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+    	margin-left: 25px;
+    	margin-right: 10px;
     }
     .statement{
       margin: 30px;
@@ -58,9 +65,11 @@
     .statement *{      
       vertical-align: top;
     }
+    
   </style>
   <body>
 	<%@include file="navbar.jsp" %> 
+	
     <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
       <div class="content">

@@ -39,7 +39,7 @@
 		            	if(session.getAttribute("position").equals("student")){ %> 
 		            		DoTestServlet?IDTest=<%= testList.get(i).getIdTest() %>
 		            	<%} else{ %>
-		            		ViewTestServlet
+		            		ViewDetailServlet
 		            	
 		            	<%} %>
 		            	">
