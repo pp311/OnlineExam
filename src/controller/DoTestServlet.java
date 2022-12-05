@@ -36,7 +36,7 @@ public class DoTestServlet extends HttpServlet {
 		Timestamp now = new Timestamp(date.getTime());
 		
 		request.setAttribute("Test", testInfo);
-		
+		request.setAttribute("Subject", tb.getSubject(testInfo.getIDSubject()));
 		List<Question> listQ = tb.getQuestions(IDTest);
 		request.setAttribute("listQ", listQ);
 		request.setAttribute("listA", tb.getAnswers(listQ));

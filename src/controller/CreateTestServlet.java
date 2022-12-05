@@ -1,20 +1,12 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +37,8 @@ public class CreateTestServlet extends HttpServlet {
 			String msg = "Tạo đề thành công!";
 			request.setAttribute("success", msg);
 		}
+
+		request.setAttribute("listS", new TestBO().getSubjects());
 		getServletContext().getRequestDispatcher("/CreateTest.jsp").forward(request, response);
 	}
 
@@ -57,10 +51,10 @@ public class CreateTestServlet extends HttpServlet {
 			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 			Timestamp dateTest = new Timestamp(formatter.parse(request.getParameter("dateTest")).getTime());
 			
-			String testName = request.getParameter("subjectTest");
-			if(testName.equals("Khác")) testName = request.getParameter("subjectOther");		
+			String TestName = request.getParameter("testName");
+			int IDSubject = Integer.parseInt(request.getParameter("subjectTest"));
 			
-			Test test = new Test(-1, numberQuestion, timeInMinutes, dateTest, testName);
+			Test test = new Test(-1, numberQuestion, timeInMinutes, dateTest, TestName, IDSubject);
 			List<Question> listQ = new ArrayList<Question>(numberQuestion);
 			List<Answer> listA = new ArrayList<>();
 			

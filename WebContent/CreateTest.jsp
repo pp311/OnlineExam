@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="model.BEAN.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html lang="en">
@@ -69,12 +71,18 @@
   </style>
   <body>
 	<%@include file="navbar.jsp" %> 
+	<% List<model.BEAN.Subject> listS = (List<model.BEAN.Subject>)request.getAttribute("listS"); 
+	int i; %>
 	
     <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
       <div class="content">
         <div class="header" id="title">
           <h3>TẠO ĐỀ THI CHO SINH VIÊN</h3>
+          
+          <div class="hd top">
+          	Tên bài thi: <input type="text" name="testName"><br>
+          </div>
 
           <div class="hd">
   
@@ -92,12 +100,12 @@
   
             <span class="top left">
               Môn thi:
-              <select name="subjectTest" onchange="otherSubject();">
-                <option>Công nghệ web</option>
-                <option>Lập trình mạng</option>
-                <option>Chương trình dịch</option>
-                <option>Toán UDCNTT</option>
-                <option>Khác</option>
+              <select name="subjectTest">
+              <% for(i = 0; i < listS.size(); i++) {%>              
+                 <option value='<%= listS.get(i).getIDSubject() %>'>
+                	<%= listS.get(i).getSubjectName() %>
+                </option> 
+                <%} %>
               </select>
             </span>
             
@@ -274,15 +282,6 @@
 		  if(milliseconds >= 0){
 			  alert("Ngày thi phải sau thời điểm hiện tại!");
 			  return false;
-		  }
-		  
-		  var testName = document.getElementsByName("subjectTest")[0].value;
-		  if(testName == "Khác"){
-			  var other = document.getElementsByName("subjectOther")[0].value;
-			  if(other == ""){
-				  alert("Môn học không thể để trống!");
-				  return false;
-			  }
 		  }
 
 		  var date = document.getElementsByName("timeInMininutes")[0].value;

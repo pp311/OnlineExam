@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.Subject;
+
 import model.BEAN.Answer;
 import model.BEAN.History;
 import model.BEAN.Question;
@@ -50,7 +52,7 @@ public class TestDAO {
 			
 			ResultSet result = ps.executeQuery();
 			if(result.next()) return new Test(result.getInt("IDTest"), result.getInt("NumberQuestion"),
-					result.getInt("Time"), result.getTimestamp("DateTest"), result.getString("TestName"));
+					result.getInt("Time"), result.getTimestamp("DateTest"), result.getString("TestName"), result.getInt("IDSubject"));
 
 			return null;
 		}
@@ -167,17 +169,68 @@ public class TestDAO {
 		}
 	}
 	
+	public List<model.BEAN.Subject> getSubjects(){
+		try {
+			List<model.BEAN.Subject> listS = new ArrayList<model.BEAN.Subject>();
+			
+			Connection db = DBConnection.getInstance().getConection();
+			
+			String sql = "SELECT * FROM `subject`";
+			
+			ps = db.prepareStatement(sql);
+			
+			ResultSet result = ps.executeQuery();
+			
+			while(result.next()) {
+				listS.add(new model.BEAN.Subject(result.getInt(1), result.getString(2)));
+			}	
+			
+			return listS;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ten mon hoc!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public model.BEAN.Subject getSubject(int IDSubject){
+		try {
+			
+			Connection db = DBConnection.getInstance().getConection();
+			
+			String sql = "SELECT * FROM `subject` where IDSubject=?";
+			
+			ps = db.prepareStatement(sql);
+			ps.setInt(1, IDSubject);
+			
+			ResultSet result = ps.executeQuery();
+			
+			if(result.next()) {
+				return new model.BEAN.Subject(result.getInt(1), result.getString(2));
+			}	
+			
+			return null;
+		}
+		catch (SQLException e) {
+			System.out.println("Co loi xay ra khi lay ten mon thi!");
+			System.out.println(e);
+			return null;
+		}
+	}
+	
 	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {
 		try {
 			Connection db = DBConnection.getInstance().getConection();
-			String sql = "INSERT INTO `test`(`DateTest`, `NumberQuestion`, `Time`, `TestName`) "
-					+ "VALUES (?,?,?,?)";
+			String sql = "INSERT INTO `test`(`DateTest`, `NumberQuestion`, `Time`, `TestName`, `IDSubject`) "
+					+ "VALUES (?,?,?,?,?)";
 			
 			ps = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setTimestamp(1, test.getDateTest());
 			ps.setInt(2, test.getNumberQuestion());
 			ps.setInt(3, test.getTime());
 			ps.setString(4, test.getTestName());
+			ps.setInt(5, test.getIDSubject());
 			
 			int add = ps.executeUpdate();
 			if(add == 0) return false;

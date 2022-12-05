@@ -5,15 +5,17 @@ public class Test {
 	private int idTest, numberQuestion;
 	private int time;
 	private Timestamp dateTest;
-	private String testName, subject;
+	private String testName;
+	int IDSubject;
 	public Test() {}
-	public Test(int idTest, int numberQuestion, int time, Timestamp dateTest, String testName) {
+	public Test(int idTest, int numberQuestion, int time, Timestamp dateTest, String testName, int IDSubject) {
 		super();
 		this.idTest = idTest;
 		this.numberQuestion = numberQuestion;
 		this.time = time;
 		this.dateTest = dateTest;
 		this.testName = testName;
+		this.IDSubject = IDSubject;
 	}
 	public int getIdTest() {
 		return idTest;
@@ -49,10 +51,10 @@ public class Test {
 	public String toString() {
 		return "" + idTest + ", " + numberQuestion + ", " + time + ", " + dateTest.toString() + ", " + testName;
 	}
-	public String getSubject() {
-		return subject;
+	public int getIDSubject() {
+		return IDSubject;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setIDSubject(int IDSubject) {
+		this.IDSubject = IDSubject;
 	}
 }

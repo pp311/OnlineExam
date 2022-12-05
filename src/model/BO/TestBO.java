@@ -3,6 +3,8 @@ package model.BO;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.Subject;
+
 import model.BEAN.Answer;
 import model.BEAN.History;
 import model.BEAN.Question;
@@ -30,6 +32,12 @@ public class TestBO {
 	public List<Integer> getHistories(int ResultID) {
 		return new TestDAO().getHistories(ResultID);
 	}
+	public List<model.BEAN.Subject> getSubjects(){
+		return new TestDAO().getSubjects();
+	}
+	public model.BEAN.Subject getSubject(int IDSubject){
+		return new TestDAO().getSubject(IDSubject);
+	}	
 	public boolean AddTest(Test test, List<Question> questions, List<Answer> answers) {
 		TestDAO td = new TestDAO();
 		return td.AddTest(test, questions, answers);

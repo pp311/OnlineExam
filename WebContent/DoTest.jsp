@@ -1,3 +1,4 @@
+<%@page import="model.BEAN.Subject"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="model.BEAN.Answer"%>
@@ -81,26 +82,27 @@
     }
   </style>
   <body>
+    <%@include file="navbar.jsp" %> 
     <% Test t = (Test)request.getAttribute("Test");
+    	Subject s = (Subject)request.getAttribute("Subject");
     	List<Question> listQ = (List<Question>)request.getAttribute("listQ");
     	List<Answer> listA = (List<Answer>)request.getAttribute("listA");
     	DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
     %>
-    <%@include file="navbar.jsp" %> 
     <div class="countdown">
-    	<input type="hidden" id="time" value="<%= t.getTime()%>">
+	   	<input type="hidden" id="time" value="<%= t.getTime()%>">
 		<p id="clock">00:00</p>
 	</div>
     <form name="f1" action="DoTestServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
 
       <div class="content">
         <div class="header">
-          <h3 style="text-align: center">BÀI KIỂM TRA</h3>
+          <h3 style="text-align: center"><%= t.getTestName() %></h3>
 
           <div class="hd">
              <span class="top left">
               Môn thi:
-              <label><%= t.getTestName() %></label>
+              <label><%= s.getSubjectName() %></label>
             </span>
             
             <span class="top right"> 
