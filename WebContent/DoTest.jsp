@@ -138,7 +138,7 @@
 	 				
 		            <div class='statement'>
 		            	<% if(!listQ.get(i-1).isMultiChoice()){ %>
-		            		<input type='radio' name=ra<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' />
+		            		<input type='radio' name=group<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' />
 		            	<% }else{ %>
 		            		<input type='checkbox' name=cb<%= listQ.get(i-1).getIdQuestion() %> value='<%= ans.getIdAnswer() %>' />
 		            	<% } %>
@@ -182,42 +182,17 @@
 	}, 1000);
     
       function removeAll(){
-    	  var choice = document.getElementsByName("cb");
+    	  var choice = document.getElementsByTagName("input");
     	  if(choice != null){
     		  for(var i = 0; i < choice.length; i++){
-    			  if(choice[i].checked) choice[i].checked = false;
-    		  }
-    	  }
-    	  var choice = document.getElementsByName("group");
-    	  if(choice != null){
-    		  for(var i = 0; i < choice.length; i++){
-    			  if(choice[i].checked) choice[i].checked = false;
+    			  if((choice[i].name.indexOf("cb") == 0 || choice[i].name.indexOf("group") == 0) && choice[i].checked) choice[i].checked = false;
     		  }
     	  }
       }  
     
-      function checkAll(){
-		  
-		  //bug 1
-		 /*  var multi=document.getElementsByName('cb')[0];
-		  //var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
- 		if(multi.checked) alert("yes");
-		else alert("no");   */
-			   /* for(var i = 1; i <= multiChoice.length; i++) {
-				
-				if(multiChoice[i-1] != null) {		
-					alert("hello");
-					var correct = document.getElementsByName("cb" + i);
-					alert(correct.length);
-				}
-				else {alert("hello2");
-					var correct = document.getElementsByName("group" + i);
-					alert(correct.length);	
-				}
-			}   */
-
-			//bug 2: nhấn quay lui
-    	  return true;
+      function checkAll(){		  
+		  var val = confirm("Bạn có chắc chắn nộp bài thi? Sau khi nộp sẽ không thể chỉnh sửa.");
+    	  return val;
       }
 
     </script>

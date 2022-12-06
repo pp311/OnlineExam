@@ -1,3 +1,4 @@
+<%@page import="model.BEAN.Subject"%>
 <%@page import="model.BEAN.History"%>
 <%@page import="model.BEAN.Result"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -71,6 +72,7 @@
   </style>
   <body>
     <% Test t = (Test)request.getAttribute("Test");
+    	Subject s = (Subject)request.getAttribute("Subject");
     	List<Question> listQ = (List<Question>)request.getAttribute("listQ");
     	List<Answer> listA = (List<Answer>)request.getAttribute("listA");
     	Result rs = (Result)request.getAttribute("rs");
@@ -78,16 +80,16 @@
     	DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
     %>
     <%@include file="navbar.jsp" %> 
-    <form name="f1" action="ViewTestServlet?IDTest=<%= t.getIdTest() %>" onSubmit='return checkAll()' method="post">
+    <form name="f1" action="ViewTestServlet?IDTest=<%= t.getIdTest() %>" method="post">
 
       <div class="content">
         <div class="header">
-          <h3 style="text-align: center">KẾT QUẢ KIỂM TRA</h3>
+          <h3 style="text-align: center">KẾT QUẢ <%= t.getTestName().toUpperCase() %></h3>
 
           <div class="hd">
              <span class="top left">
               Môn thi:
-              <label><%= t.getTestName() %></label>
+              <label><%= s.getSubjectName() %></label>
             </span>
             
             <span class="top right"> 
@@ -122,7 +124,7 @@
             
             <span class="top right">
               Thời gian nộp:
-              <label><%= rs.getSubmitTime() %></label>
+              <label><%= formatter.format(rs.getSubmitTime().getTime()) %></label>
             </span>
             
           </div>
@@ -163,51 +165,9 @@
 	 			<% count--;
 	 		     
 			} %>    
-          	<div style="width: 106%;"><input type='submit' value='Hoàn thành' style='padding:10px; border-radius: 20px' /><a href='' onclick = 'removeAll(); return false;' style='float:right'>Xoá hết câu trả lời</a></div>
+          	<div style="width: 106%; text-align: center"><input type='submit' value='Quay lại' style='padding:10px; border-radius: 20px;' /></div>
           </div> 
 
     </form>
-
-    <script>
-      function removeAll(){
-    	  var choice = document.getElementsByName("cb");
-    	  if(choice != null){
-    		  for(var i = 0; i < choice.length; i++){
-    			  if(choice[i].checked) choice[i].checked = false;
-    		  }
-    	  }
-    	  var choice = document.getElementsByName("group");
-    	  if(choice != null){
-    		  for(var i = 0; i < choice.length; i++){
-    			  if(choice[i].checked) choice[i].checked = false;
-    		  }
-    	  }
-      }  
-    
-      function checkAll(){
-		  
-		  //bug 1
-		 /*  var multi=document.getElementsByName('cb')[0];
-		  //var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
- 		if(multi.checked) alert("yes");
-		else alert("no");   */
-			   /* for(var i = 1; i <= multiChoice.length; i++) {
-				
-				if(multiChoice[i-1] != null) {		
-					alert("hello");
-					var correct = document.getElementsByName("cb" + i);
-					alert(correct.length);
-				}
-				else {alert("hello2");
-					var correct = document.getElementsByName("group" + i);
-					alert(correct.length);	
-				}
-			}   */
-
-			//bug 2: nhấn quay lui
-    	  return true;
-      }
-
-    </script>
   </body>
 </html>

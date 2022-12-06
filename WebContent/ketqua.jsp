@@ -1,3 +1,4 @@
+<%@page import="java.text.DateFormat"%>
 <%@page import="model.BEAN.Result"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -14,6 +15,7 @@
 	<%@include file="navbar.jsp" %>
 	<% Result rs = (Result)request.getAttribute("rs"); 
 		String nametest = (String)request.getAttribute("nametest");
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
 	%>
   <div class="container">
     <h1>Kết quả làm bài</h1>
@@ -32,7 +34,7 @@
 	        <tr>          
 		       <td><%=nametest %></td>
 		       <td><%=rs.getGrade() %></td>
-		       <td><%=rs.getSubmitTime() %></td>
+		       <td><%=formatter.format(rs.getSubmitTime()) %></td>
 	        </tr>        
  
         </tbody>

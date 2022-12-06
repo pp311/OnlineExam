@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.BEAN.Question;
 import model.BEAN.Result;
+import model.BEAN.Test;
 import model.BO.TestBO;
 
 @WebServlet("/ViewDetailServlet")
@@ -27,7 +28,9 @@ public class ViewDetailServlet extends HttpServlet {
 		Result rs = tb.getResult(IDResult);
 		request.setAttribute("rs", rs);
 		request.setAttribute("listH", tb.getHistories(IDResult));
-		request.setAttribute("Test", tb.getTest(rs.getIdTest()));
+		Test t = tb.getTest(rs.getIdTest());
+		request.setAttribute("Test", t);
+		request.setAttribute("Subject", tb.getSubject(t.getIDSubject()));
 		List<Question> listQ = tb.getQuestions(rs.getIdTest());
 		request.setAttribute("listQ", listQ);
 		request.setAttribute("listA", tb.getAnswers(listQ));

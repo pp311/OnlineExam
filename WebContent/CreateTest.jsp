@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="model.BEAN.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -72,7 +75,9 @@
   <body>
 	<%@include file="navbar.jsp" %> 
 	<% List<model.BEAN.Subject> listS = (List<model.BEAN.Subject>)request.getAttribute("listS"); 
-	int i; %>
+	   int i; 
+	   DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	%>
 	
     <form name="f1" action="CreateTestServlet" onSubmit='return checkAll()' method="post">
 
@@ -87,7 +92,7 @@
           <div class="hd">
   
             <span class="top left">
-              Ngày thi: <input type="datetime-local" name="dateTest" value="2022-12-01T07:00"/>
+              Ngày thi: <input type="datetime-local" name="dateTest" value="<%= formatter.format(new Date().getTime()) %>"/>
             </span>
             
             <span class="top right"> 
@@ -117,7 +122,7 @@
           </div>
         
           <div id="createQuestion">
-            <input type="submit" value="Tạo câu hỏi" style="padding: 5px; border-radius: 20px;" onclick="numberChange(); return false;" />
+            <input type="button" value="Tạo câu hỏi" style="padding: 5px; border-radius: 20px;" onclick="return numberChange();" />
           </div>
           
         </div>        
@@ -277,6 +282,12 @@
       }
       
       function checkAll(){
+		  var testName = document.getElementsByName("testName")[0].value;
+		  if(testName == ""){
+			  alert("Tên bài thi không thể để trống!");
+			  return false;
+		  }
+		  
     	  var date = document.getElementsByName("dateTest")[0].value;
     	  var milliseconds = (new Date()).getTime() - new Date(date).getTime();
 		  if(milliseconds >= 0){
@@ -290,31 +301,38 @@
 			  return false;
 		  }
 
-		  var numQues = document.getElementsByName("numQues")[0].value;
-		  if(isNaN(Number(numQues)) || date <= 0){
+		  var numQues = document.getElementsByName("numberQues")[0].value;
+		  if(isNaN(Number(numQues)) || numQues <= 0){
 			  alert("Số câu hỏi phải là số dương!");
 			  return false;
 		  }
 		  
-		  //bug 1
-		 /*  var multi=document.getElementsByName('cb')[0];
-		  //var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
- 		if(multi.checked) alert("yes");
-		else alert("no");   */
-			   /* for(var i = 1; i <= multiChoice.length; i++) {
-				
-				if(multiChoice[i-1] != null) {		
-					alert("hello");
-					var correct = document.getElementsByName("cb" + i);
-					alert(correct.length);
+		  if(numQues != numberQuestion()){
+			  alert("Số câu không khớp với số câu hỏi bạn đã tạo!");
+			  return false;
+		  }
+		  
+		  var multiChoice = document.getElementsByName("cb");					//get list Checkbox multiple choice
+		  for(var i = 1; i <= multiChoice.length; i++) {
+		  	var checked = false;
+			if(multiChoice[i-1].checked) {		
+				var ansCB = document.getElementsByName("cb" + i);
+				for(var j = 0; j < ansCB.length; j++){
+					if(ansCB[j].checked) {checked = true; break;}
 				}
-				else {alert("hello2");
-					var correct = document.getElementsByName("group" + i);
-					alert(correct.length);	
-				}
-			}   */
-
-			//bug 2: nhấn quay lui thì mất cái input otherSubject
+			}
+			else {
+				var ansRD = document.getElementsByName("group" + i);
+				for(var j = 0; j < ansRD.length; j++){
+					if(ansRD[j].checked) {checked = true; break;}
+				}	
+			} 
+			if(!checked){
+				alert("Bạn chưa chọn đáp án cho câu hỏi thứ " + i + "!");
+			    return false;
+			}
+		  }   
+		  
     	  return true;
       }
 

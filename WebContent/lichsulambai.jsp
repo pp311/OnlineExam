@@ -1,5 +1,6 @@
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page language="java" import="model.BEAN.LichSuLamBai" %>
 <%@ page language="java" import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
@@ -11,7 +12,9 @@
 </head>
 <body>
 	<%@include file="navbar.jsp" %>
-	<% ArrayList<LichSuLamBai> listKQ = (ArrayList)request.getAttribute("listKQ"); %>
+	<% ArrayList<LichSuLamBai> listKQ = (ArrayList)request.getAttribute("listKQ");
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
+	%>
   <div class="container">
     <h1>Danh sách bài thi đã làm</h1>
     <div class="list">
@@ -30,7 +33,7 @@
 	        <tr>          
 		       <td><%=listKQ.get(i).getTestName() %></td>
 		       <td><%=listKQ.get(i).getGrade() %></td>
-		       <td><%=listKQ.get(i).getSubmitTime() %></td>
+		       <td><%=formatter.format(listKQ.get(i).getSubmitTime().getTime()) %></td>
 	        </tr>        
  			<%} %>
         </tbody>

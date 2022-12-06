@@ -64,7 +64,10 @@ public class DoTestServlet extends HttpServlet {
 		for(int i = 0;i < listQ.size() ;i++) {
 			if(!listQ.get(i).isMultiChoice()) {
 				listQ.get(i).getIdQuestion();
-				int ctl = Integer.parseInt((String)request.getParameter("ra"+String.valueOf(listQ.get(i).getIdQuestion())));
+				int ctl;
+				String ans = request.getParameter("group"+String.valueOf(listQ.get(i).getIdQuestion()));
+				if(ans == null) continue;
+				ctl = Integer.parseInt(ans);
 				listH.add(new History(-1, ctl));
 				if(1==tb.checkradio(ctl)) {
 					scd +=1;
@@ -77,7 +80,8 @@ public class DoTestServlet extends HttpServlet {
 				String[] myCheckBoxValue = request.getParameterValues("cb"+String.valueOf(listQ.get(i).getIdQuestion()));
 				int soluong= tb.getSoLuong(idqs);
 				double dung = 0;
-				for(int x = 0;x<myCheckBoxValue.length;x++) {
+				int length = (myCheckBoxValue == null)? 0 : myCheckBoxValue.length;
+				for(int x = 0; x < length; x++) {
 					int ctl = Integer.parseInt(myCheckBoxValue[x]);
 					listH.add(new History(-1, ctl));
 					if (tb.checkcheckbox(ctl)==1) {
