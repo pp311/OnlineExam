@@ -6,7 +6,7 @@ public class Test {
 	private int time;
 	private Timestamp dateTest;
 	private String testName;
-	int IDSubject;
+	private int IDSubject;
 	public Test() {}
 	public Test(int idTest, int numberQuestion, int time, Timestamp dateTest, String testName, int IDSubject) {
 		super();
